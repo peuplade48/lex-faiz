@@ -6,7 +6,7 @@ permissions:
 on:
   schedule:
     # Her 5 dakikada bir çalışması için:
-    - cron: "*/5 * * * *"
+    - cron: "*/1 * * * *"
   workflow_dispatch: # Manuel çalıştırma butonu
 
 jobs:
