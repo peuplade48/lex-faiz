@@ -5,8 +5,9 @@ permissions:
 
 on:
   schedule:
-    - cron: "0 * * * *"
-  workflow_dispatch:
+    # Her 5 dakikada bir çalışması için:
+    - cron: "*/5 * * * *"
+  workflow_dispatch: # Manuel çalıştırma butonu
 
 jobs:
   fetch:
@@ -18,6 +19,7 @@ jobs:
 
       - name: JSON API'den veriyi al
         run: |
+          # API'den veriyi çek ve report.json olarak kaydet
           curl -s https://falzer6.peuplade.com.tr/report -o report.json
 
       - name: Commit & Push
@@ -25,5 +27,6 @@ jobs:
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add report.json
-          git commit -m "API report güncellendi" || echo "Degisiklik yok"
+          # Eğer dosyada değişiklik yoksa hata vermemesi için || echo kullanıyoruz
+          git commit -m "API report güncellendi: $(date +'%Y-%m-%d %H:%M:%S')" || echo "Degisiklik yok"
           git push
