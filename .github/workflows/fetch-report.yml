@@ -8,6 +8,9 @@ on:
     # Her gün saat 06:00'da (TSİ) çalışır.
     - cron: "0 3 * * *"
   workflow_dispatch: 
+  # JavaScript'ten gelen sinyali yakalamak için burayı ekledik:
+  repository_dispatch:
+    types: [disaridan-tetikleme]
 
 jobs:
   fetch:
@@ -26,5 +29,6 @@ jobs:
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add report.json
-          git commit -m "API report güncellendi: $(date +'%Y-%m-%d %H:%M:%S')" || echo "Degisiklik yok"
+          # Değişiklik varsa commit yap, yoksa hata verme
+          git commit -m "API report güncellendi: $(date +'%Y-%m-%d %H:%M:%S')" || exit 0
           git push
