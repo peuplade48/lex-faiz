@@ -22,7 +22,7 @@ jobs:
 
       - name: JSON API'den veriyi al
         run: |
-          curl -s https://falzer6.peuplade.com.tr/analyze-6183 -o report.json
+          curl -s https://falzer6.peuplade.com.tr/report -o report.json
 
       - name: Commit & Push
         run: |
